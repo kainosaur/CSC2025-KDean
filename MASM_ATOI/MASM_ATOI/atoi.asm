@@ -46,10 +46,6 @@ answer              BYTE        bufSize DUP(?),0,0
 charLength          DWORD       ?
 
 .code
-intAdd PROC
-dec charLength
-intAdd ENDP
-
 main proc
     
     ; Get Standard Output Handle
@@ -67,11 +63,9 @@ main proc
     ; Read Input from Console
     INVOKE ReadConsole, ConsoleInHandle, ADDR buffer, 
         BufSize - 2, ADDR bytesRead, 0
-
     ;
-    ;mov charLength, (LENGTHOF buffer) - 1
-    ;cmp charLength, 0
-    ;jne intAdd
+    ;
+
 
     ; Echo
     INVOKE WriteConsole, ConsoleOutHandle, ADDR buffer,
