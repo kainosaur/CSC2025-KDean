@@ -11,7 +11,7 @@ extern _ExitProcess@4:near
 
 main PROC
 	;Take the value of n
-	mov eax, 7 ; ecx used for loop counter
+	mov eax, 2 ; ecx used for loop counter
 	mov edx, 1 ; previous
 	mov esi, 1 ; current
 	mov edi, 1 ; next
@@ -19,14 +19,12 @@ main PROC
 	mov ecx, eax
 	dec ecx
 	dec ecx
-	
+	cmp ecx, 0
+	jle finish
 	begin:
-		cmp ecx, 0
-		jl finish
 		add edi, edx
 		mov edx, esi
 		mov esi, edi
-
 	loop begin ; Loops if ecx is greater than 0
 	
 	finish:
