@@ -46,6 +46,14 @@ answer              BYTE        bufSize DUP(?),0,0
 charLength          DWORD       ?
 
 .code
+_convertChartoInt proc
+    ; cl = 0
+    ; inc cl
+    ; mov answer, [buffer + 4 * cl]
+    ; Stop if cl == buffer size., so cmp cl, buffer size
+
+_convertCharToInt ENDP
+
 main proc
     
     ; Get Standard Output Handle
@@ -64,7 +72,11 @@ main proc
     INVOKE ReadConsole, ConsoleInHandle, ADDR buffer, 
         BufSize - 2, ADDR bytesRead, 0
     ;
-    ;
+    ; Each byte is currently a character, either lowercase or uppercase.
+    ; Take each byte, convert to chr num.
+    ; EXAMPLE: A -> 65, HEX is 41. Append to str char 6, 5. 
+    ; So, make a for loop which goes through each char and converts. 
+
 
 
     ; Echo
