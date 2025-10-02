@@ -11,7 +11,7 @@ extern _ExitProcess@4:near
 
 main PROC
 	;Take the value of n
-	mov eax, 2 ; ecx used for loop counter
+	mov eax, 7 ; ecx used for loop counter
 	mov edx, 1 ; previous
 	mov esi, 1 ; current
 	mov edi, 1 ; next
