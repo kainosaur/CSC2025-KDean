@@ -18,7 +18,7 @@ main PROC
 
 	mov ecx, eax
 	dec ecx
-	dec ecx
+	dec ecx ; ecx is counter
 	cmp ecx, 0
 	jle finish
 	begin:
