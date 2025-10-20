@@ -40,10 +40,12 @@ BytesWritten        DWORD       0
 ConsoleOutHandle    DWORD       0
 buffer              BYTE        bufSize DUP(?),0,0 
 userStrSize         DWORD       12
-bytesRead           DWORD       ?
+bytesRead           DWORD       0
 ConsoleInHandle     DWORD       0
-answer              BYTE        bufSize DUP(?),0,0
-charLength          DWORD       ?
+temp                DWORD       0
+resolution          DWORD       0
+answer              DWORD       0
+charLength          DWORD       0
 
 .code
 _convertChartoInt proc
@@ -79,9 +81,44 @@ main proc
 
 
 
-    ; Echo
-    INVOKE WriteConsole, ConsoleOutHandle, ADDR buffer,
-        (LENGTHOF buffer)-1, ADDR bytesRead, 0
+
+
+    mov ecx, bytesRead
+    sub ecx, 2
+    mov ebx, 0
+    mov resolution, 1
+    mov eax, 0
+
+    nextchar:
+        mov eax, 0
+        add al, byte ptr [buffer + ecx]
+        sub al, 48
+        cmp al, 0
+        jl incarray             ;pass over none number variables.
+        cmp al, 9
+        jg incarray             ;pass over non number variables
+
+    placenum:
+        mov edx, resolution
+        mul edx                 ;mul always multiplies by the eax register
+        add answer, eax
+        mov eax, 10
+        mov edx, resolution
+        mul edx
+        mov resolution, eax
+        ; mult resolution by 10, then add eax and resolution to answer
+        
+    incarray:
+        dec ecx
+        cmp ecx, 0
+        jl finish
+        jge nextchar
+
+    finish:
+        add answer, 23
+            ; Echo
+        INVOKE WriteConsole, ConsoleOutHandle, ADDR buffer,
+            (LENGTHOF buffer)-1, ADDR bytesRead, 0
     
     invoke ExitProcess,0
 main endp
